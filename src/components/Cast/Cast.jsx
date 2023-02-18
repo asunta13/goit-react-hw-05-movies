@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getMovieCredits } from '../../api';
 import { Loader } from 'components/Loader';
-import { Image, Thumb, CastBox } from './Cast.styled';
+import { Image, Thumb, CastSection } from './Cast.styled';
 import poster from 'images/file_not_found.jpg';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -27,9 +27,9 @@ const Cast = () => {
   }, [id]);
   const { cast } = actors;
   return (
-    <section>
+    <CastSection>
       {cast && cast.length > 0 ? (
-        <CastBox>
+        <ul>
           {cast.map(({ id, profile_path, name, character }) => {
             return (
               <li key={id}>
@@ -46,12 +46,12 @@ const Cast = () => {
               </li>
             );
           })}
-        </CastBox>
+        </ul>
       ) : (
         <div>We don't have information about cast for this movies.</div>
       )}
       {isLoading && <Loader />}
-    </section>
+    </CastSection>
   );
 };
 

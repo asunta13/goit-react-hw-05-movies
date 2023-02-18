@@ -28,13 +28,6 @@ export const Title = styled.h1`
   margin-bottom: 16px;
 `;
 
-export const InfoTitle = styled.p`
-  font-weight: 600;
-  color: #ff4500;
-  :not(:last-child) {
-    margin-bottom: 8px;
-  }
-`;
 export const Info = styled.span`
   font-weight: 400;
   color: #000000;
@@ -42,4 +35,6 @@ export const Info = styled.span`
 
 export const AddInfo = styled.div`
   border-top: 1px solid black;
+  padding-bottom: 15px;
+  border-bottom: 1px solid black;
 `;

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getMovieReviews } from '../../api';
 import { Loader } from 'components/Loader';
-import { ReviewsBox, ReviewAuthor } from './Reviews.styled';
+import { ReviewAuthor, ReviewSection } from './Reviews.styled';
 
 const Reviews = () => {
   const { id } = useParams();
@@ -24,9 +24,9 @@ const Reviews = () => {
   }, [id]);
   const { results } = reviews;
   return (
-    <section>
+    <ReviewSection>
       {results && results.length > 0 ? (
-        <ReviewsBox>
+        <ul>
           {results.map(({ author, id, content }) => {
             return (
               <li key={id}>
@@ -35,12 +35,12 @@ const Reviews = () => {
               </li>
             );
           })}
-        </ReviewsBox>
+        </ul>
       ) : (
         <div>We don't have any reviews for this movie.</div>
       )}
       {isLoading && <Loader />}
-    </section>
+    </ReviewSection>
   );
 };
 

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const CastBox = styled.ul`
-  border-top: 1px solid black;
+export const CastSection = styled.section`
   padding-top: 20px;
 `;
 

@@ -15,7 +15,6 @@ import {
   MovieCard,
   Image,
   Title,
-  InfoTitle,
   Info,
   AddInfo,
 } from './MovieDetailsPage.styled';
@@ -44,9 +43,14 @@ const MovieDetailsPage = () => {
     }
     getMovie();
   }, [id]);
-  const { title, poster_path, vote_average, genres, overview } = movie;
+  const { title, poster_path, release_date, vote_average, genres, overview } =
+    movie;
   const totalVoteAverage = 10;
   const percent = (vote_average * 100) / totalVoteAverage;
+  const formateDate = dateString => {
+    const parsedDate = Date.parse(dateString);
+    return new Date(parsedDate).getFullYear();
+  };
   const goBack = useCallback(() => navigate(from), [navigate, from]);
   return (
     <>
@@ -60,17 +64,16 @@ const MovieDetailsPage = () => {
           alt="Movie poster"
         />
         <div>
-          <Title>{title}</Title>
-          <InfoTitle>
+          <Title>
+            {title} ({formateDate(release_date)})
+          </Title>
+          <p>
             User Score: <Info>{percent.toFixed()}%</Info>
-          </InfoTitle>
-          <InfoTitle>
-            Overview: <Info> {overview}</Info>
-          </InfoTitle>
-          <InfoTitle>
-            Genres:{' '}
-            <Info>{genres && genres.map(genre => genre.name).join(', ')}</Info>
-          </InfoTitle>
+          </p>
+          <h2>Overview</h2>
+          <p> {overview}</p>
+          <h3>Genres </h3>
+          <p>{genres && genres.map(genre => genre.name).join(' ')}</p>
         </div>
       </MovieCard>
       <AddInfo>
@@ -87,10 +90,11 @@ const MovieDetailsPage = () => {
             </Link>
           </li>
         </ul>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
       </AddInfo>
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+
       {isLoading && <Loader />}
       <Toaster />
     </>
